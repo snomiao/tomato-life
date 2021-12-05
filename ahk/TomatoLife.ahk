@@ -16,10 +16,10 @@ TomatoLifeLaunch()
 
 Return
 
-; dev
-#if ENVIROMENT=="DEV"
-^!i:: TomatoTicker(1)
-~^s:: reload
+; ; dev
+; #if ENVIROMENT=="DEV"
+; ^!i:: TomatoTicker(1)
+; ~^s:: reload
 
 #if
 TomatoLifeLaunch() {
