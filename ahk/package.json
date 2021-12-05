@@ -1,0 +1,21 @@
+{
+  "name": "tomato-life-ahk",
+  "version": "1.0.0",
+  "description": "25+5 循环番茄工作法",
+  "main": "index.js",
+  "bin": "TomatoLife.exe",
+  "scripts": {
+    "deploy": "auto-start-enable.bat",
+    "remove": "auto-start-disable.bat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snomiao/Tomato-Life-AHK.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snomiao/Tomato-Life-AHK/issues"
+  },
+  "homepage": "https://github.com/snomiao/Tomato-Life-AHK#readme"
+}

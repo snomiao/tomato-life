@@ -1,9 +1,8 @@
 # Tomato Life
 
-Lang: __[English](README.md)__ | [中文简体](README_zh-CN.MD)
-
 Just work hard at every 0-24 and 30-54 minutes.
 
+Lang: __[English](README.md)__ | [中文简体](README_zh-CN.MD)
 ## Install
 
 You can install me in here.

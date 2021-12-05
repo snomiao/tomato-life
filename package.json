@@ -1,0 +1,25 @@
+{
+  "name": "tomato-life",
+  "version": "1.0.0",
+  "description": "Just work hard at every 0-24 and 30-54 minutes.",
+  "main": "./ahk/TomatoLife.exe",
+  "bin": "./ahk/TomatoLife.exe",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "ahk": "start ./ahk/TomatoLife.exe",
+    "build:extension": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snomiao/Tomato-Life.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snomiao/Tomato-Life/issues"
+  },
+  "homepage": "https://github.com/snomiao/Tomato-Life#readme"
+}
