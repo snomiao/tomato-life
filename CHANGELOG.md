@@ -1,3 +1,12 @@
+## [1.0.5](https://github.com/snomiao/Tomato-Life/compare/v1.0.4...v1.0.5) (2022-01-04)
+
+
+### Bug Fixes
+
+* auto startup ([2d17b71](https://github.com/snomiao/Tomato-Life/commit/2d17b71062cd43a879b06ec94c4a0e31e412c58f))
+
+
+
 ## [1.0.4](https://github.com/snomiao/Tomato-Life/compare/v1.0.3...v1.0.4) (2021-12-05)
 
 
