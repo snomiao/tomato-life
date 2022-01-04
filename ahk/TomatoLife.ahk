@@ -16,6 +16,7 @@ Menu, tray, icon, Tomato.ico
 
 ; Menu, Tray, Click
 TomatoLifeLaunch()
+MakeSureStartup()
 
 Return
 
@@ -25,6 +26,12 @@ Return
 ; ~^s:: reload
 
 #if
+MakeSureStartup(){
+    content = start "" %A_AhkPath%
+    startCMDPath = %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\tomato-life.cmd
+    FileDelete, %startCMDPath%
+    FileAppend, %content%, %startCMDPath%
+}
 TomatoLifeLaunch() {
     HighPerformanceTimeConfig()
     SetTimer TomatoLife, -1
