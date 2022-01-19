@@ -13,7 +13,7 @@
     "patch": "npm version patch",
     "version": "npm run version:changelog",
     "version:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "postversion": "git push --follow-tag --all",
+    "postversion": "git push --follow-tag --all && npm publish",
     "build:extension": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force",
     "prepare": "husky install",
     "release": "standard-version"
