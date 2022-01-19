@@ -16,7 +16,8 @@
     "postversion": "git push --follow-tag --all && npm publish",
     "build:extension": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force",
     "prepare": "husky install",
-    "release": "standard-version"
+    "release": "standard-version",
+    "postrelease": "git push --follow-tag --all && npm publish"
   },
   "repository": {
     "type": "git",
