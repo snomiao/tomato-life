@@ -12,6 +12,12 @@
 #Include, %A_ScriptDir%/IsFullScreen.ahk
 #Include, %A_ScriptDir%/VirtualDesktop.ahk
 
+EnvGet ENVIROMENT, ENVIROMENT
+if ("TEST" == ENVIROMENT || !!RegExMatch(DllCall("GetCommandLine", "str"), "/TEST")) {
+    tooltip % "[INFO] MODULE LOAD OK, SKIP CORE"
+    ExitApp
+}
+
 Menu, tray, icon, Tomato.ico
 
 ; Menu, Tray, Click
