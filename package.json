@@ -13,9 +13,10 @@
     "patch": "npm version patch",
     "version": "npm run version:changelog",
     "version:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "postversion": "git push --follow-tag",
+    "postversion": "git push --follow-tag --all",
     "build:extension": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "conventional-changelog-cli": "^2.1.1",
-    "husky": "^7.0.0"
+    "husky": "^7.0.0",
+    "standard-version": "^9.3.2"
   }
 }
