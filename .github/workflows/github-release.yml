@@ -13,3 +13,41 @@ jobs:
       - run: github-release-from-changelog
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  github-upload-crx:
+    needs: github-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - run: zip -r TomatoLife-${{ env.RELEASE_VERSION }}.crx ./src -UN=UTF8
+      - uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: TomatoLife-${{ env.RELEASE_VERSION }}.crx
+          tag: ${{ github.ref }}
+  github-upload-zip:
+    needs: github-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      # 打包
+      - run: mkdir -p ./zip
+      - run: cp -r ./ahk ./zip
+      - run: cp -r ./ahk ./zip
+      - run: zip -r TomatoLife-${{ env.RELEASE_VERSION }}.zip ./zip -UN=UTF8
+      # 扔附件
+      - uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: TomatoLife-${{ env.RELEASE_VERSION }}.zip
+          tag: ${{ github.ref }}
+      # 压缩包和 docs 一起同步到 gh-pages
+      - run: cp TomatoLife-${{ env.RELEASE_VERSION }}.zip docs/TomatoLife-${{ env.RELEASE_VERSION }}.zip
+      - run: cp TomatoLife-${{ env.RELEASE_VERSION }}.zip docs/TomatoLife-latest.zip
+      - run: cp CHANGELOG.md docs/CHANGELOG.md
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          enable_jekyll: true
