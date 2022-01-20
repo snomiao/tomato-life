@@ -14,7 +14,7 @@
     "build:extension-for-dev": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force",
     "build:extension-for-user": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.crx -Force",
     "prepare": "husky install",
-    "release": "standard-version",
+    "release": "standard-version --no-verify",
     "postrelease": "git push --follow-tag --all"
   },
   "repository": {
