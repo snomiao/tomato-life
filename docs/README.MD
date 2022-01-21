@@ -31,8 +31,6 @@ In every hours, you can hear:
 - 30:00 plays C-G notes, means you start to working or learning or whatever
 - 55:00 plays G-C notes, reminder you to relax for 5 min
 
-
-
 ## Want support or pull request?
 
 source on github:
@@ -47,7 +45,7 @@ Issue and pull requests are welcome.
 - [ ] 1280x800 screenshot
 - [ ] youtube video
 - [ ] keywords
-
+- [ ] docsify 
 ## 安装
 
 你可以在这里安装：

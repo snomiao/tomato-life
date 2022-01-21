@@ -129,7 +129,3 @@ TomatoLife:
     TomatoTicker()
     SetTimer TomatoLife, %延时%
 Return
-
-
-
-

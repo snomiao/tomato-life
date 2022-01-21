@@ -17,6 +17,11 @@ IsFullscreen(sWinTitle = "A", bRefreshRes = False) {
     Static
     Local iWinX, iWinY, iWinW, iWinH, iCltX, iCltY, iCltW, iCltH, iMidX, iMidY, iMonitor, c, D, iBestD
    
+   
+    if ( isWindowFullScreen(sWinTitle) ){
+        return True
+    }
+    
     ErrorLevel := False
    
     If bRefreshRes Or Not Mon0 {
@@ -79,4 +84,16 @@ IsFullscreen(sWinTitle = "A", bRefreshRes = False) {
         bCovers := bCovers And (Not (iStyle & 0x00040000) Or Not (iStyle & 0x00C00000))
         Return bCovers ? iMonitor : False
     } Else Return False
+}
+
+; [Hotkey should run ONLY in Fullscreen mode - AutoHotkey Community]( https://www.autohotkey.com/boards/viewtopic.php?t=64433 )
+isWindowFullScreen( winTitle := "A" )
+{   
+	winID := WinExist( winTitle )
+	If ( !winID )
+		Return false
+	
+	WinGet style, Style, ahk_id %WinID%
+	WinGetPos ,,,winW,winH, %winTitle%
+	Return ((style & 0x20800000) or winH < A_ScreenHeight or winW < A_ScreenWidth) ? false : true
 }
