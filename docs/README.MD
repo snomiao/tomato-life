@@ -46,7 +46,8 @@ Issue and pull requests are welcome.
 - [ ] 1280x800 screenshot
 - [ ] youtube video
 - [ ] keywords
-- [ ] docsify 
+- [ ] docsify
+
 ## 安装
 
 你可以在这里安装：
