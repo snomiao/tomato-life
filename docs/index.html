@@ -22,7 +22,17 @@
                 name: "Tomato-life",
                 repo: "https://github.com/snomiao/Tomato-Life.git",
                 plugins: [
-                    EditOnGithubPlugin.create(docBase, docEditBase, title),
+                    EditOnGithubPlugin.create(
+                        "https://github.com/snomiao/tomato-life/blob/master/docs/",
+                        null,
+                        function (file) {
+                            if (file.indexOf("en") + 1) {
+                                return "edit on git";
+                            } else {
+                                return "编辑";
+                            }
+                        }
+                    ),
                 ],
             };
         </script>
