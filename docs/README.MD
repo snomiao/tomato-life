@@ -13,6 +13,7 @@ You can install me in here.
 ![./screenshot_640x400.png](./screenshot_640x400.png)
 
 2. As AHK script run on your windows, will switch your virtual desktop automatically.
+[Download the latest release on github](https://github.com/snomiao/tomato-life/releases)
 
 ![](media/ahk.png)
 
