@@ -34,10 +34,9 @@ jobs:
             - uses: actions/setup-node@v1
             - run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
             # 打包
-            - run: mkdir -p ./zip
-            - run: cp -r ./ahk ./zip
-            - run: cp -r ./ahk ./zip
-            - run: zip -r TomatoLife-${{ env.RELEASE_VERSION }}.zip ./zip -UN=UTF8
+            - run: mkdir -p ./TomatoLife
+            - run: cp -r ./ahk ./TomatoLife
+            - run: zip -r TomatoLife-${{ env.RELEASE_VERSION }}.zip ./TomatoLife -UN=UTF8
             # 扔附件
             - uses: svenstaro/upload-release-action@v2
               with:
