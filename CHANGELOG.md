@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.14](https://github.com/snomiao/Tomato-Life/compare/v1.0.13...v1.0.14) (2022-01-21)
+
+### [1.0.13](https://github.com/snomiao/Tomato-Life/compare/v1.0.12...v1.0.13) (2022-01-21)
+
+
+### Bug Fixes
+
+* is full screen ([10dbdfe](https://github.com/snomiao/Tomato-Life/commit/10dbdfe2fc339f3a193f3a2ab745687442f4defd))
+
 ### [1.0.12](https://github.com/snomiao/Tomato-Life/compare/v1.0.11...v1.0.12) (2022-01-20)
 
 ### [1.0.11](https://github.com/snomiao/Tomato-Life/compare/v1.0.10...v1.0.11) (2022-01-20)
