@@ -11,7 +11,7 @@
     },
     "scripts": {
         "dev": "vite",
-        "build-extension": "vite build",
+        "build": "vite build",
         "ahk": "start ./ahk/TomatoLife.exe",
         "test": "cd ahk && TomatoLife.exe TomatoLife.ahk /TEST",
         "patch": "npm version patch",
@@ -21,6 +21,10 @@
         "release": "standard-version --no-verify",
         "postrelease": "git push --follow-tag --all"
     },
+    "files": [
+        "ahk",
+        "extension"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/snomiao/Tomato-Life.git"
