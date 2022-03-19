@@ -37,16 +37,16 @@ jobs:
             # 打包
             - run: mkdir -p ./TomatoLife
             - run: cp -r ./ahk ./TomatoLife
-            - run: zip -r TomatoLife-${{ env.RELEASE_VERSION }}-ahk.zip ./TomatoLife -UN=UTF8
+            - run: zip -r TomatoLife-${{ env.RELEASE_VERSION }}.ahk.zip ./TomatoLife -UN=UTF8
             # 扔附件
             - uses: svenstaro/upload-release-action@v2
               with:
                   repo_token: ${{ secrets.GITHUB_TOKEN }}
-                  file: TomatoLife-${{ env.RELEASE_VERSION }}-ahk.zip
+                  file: TomatoLife-${{ env.RELEASE_VERSION }}.ahk.zip
                   tag: ${{ github.ref }}
             # 压缩包和 docs 一起同步到 gh-pages
-            - run: cp TomatoLife-${{ env.RELEASE_VERSION }}-ahk.zip docs/TomatoLife-${{ env.RELEASE_VERSION }}-ahk.zip
-            - run: cp TomatoLife-${{ env.RELEASE_VERSION }}-ahk.zip docs/TomatoLife-latest.zip
+            - run: cp TomatoLife-${{ env.RELEASE_VERSION }}.ahk.zip docs/TomatoLife-${{ env.RELEASE_VERSION }}.ahk.zip
+            - run: cp TomatoLife-${{ env.RELEASE_VERSION }}.ahk.zip docs/TomatoLife-latest.zip
             - run: cp CHANGELOG.md docs/CHANGELOG.md
             - uses: peaceiris/actions-gh-pages@v3
               with:
