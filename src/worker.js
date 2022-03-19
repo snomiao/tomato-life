@@ -14,4 +14,6 @@ if ("serviceWorker" in navigator) {
                 console.log("ServiceWorker registration failed: ", err);
             });
     });
+} else {
+    throw new Error("failed to register worker");
 }
