@@ -1,23 +1,22 @@
 {
     "name": "25min Tomato Life",
     "version": "1.4",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "description": "Just work hard at every 0-24 and 30-54 minutes",
-    "default_icon": "Tomato.png",
     "icons": {
-        "16": "Tomato-16.png",
-        "48": "Tomato-48.png",
-        "128": "Tomato-128.png"
+        "16": "assets/Tomato-16.png",
+        "48": "assets/Tomato-48.png",
+        "128": "assets/Tomato-128.png"
     },
-    "browser_action": {
-        "default_icon": "Tomato.png",
+    "action": {
+        "default_icon": "assets/Tomato.png",
         "default_popup": "popup.html"
     },
-    "homepage_url": "https://tomato-life.snomiao.com/",
+    "homepage_url": "https://snomiao.com/tomato-life",
     "background": {
-        "page": "background.html"
+        "service_worker": "worker.js",
+        "type": "module"
     },
-    "permissions": [
-        "background"
-    ]
+    "permissions": ["background"]
 }
+i

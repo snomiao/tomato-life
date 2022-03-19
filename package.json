@@ -10,6 +10,8 @@
         "doc": "docs"
     },
     "scripts": {
+        "dev": "vite",
+        "build-extension": "vite build",
         "ahk": "start ./ahk/TomatoLife.exe",
         "test": "cd ahk && TomatoLife.exe TomatoLife.ahk /TEST",
         "patch": "npm version patch",
@@ -34,7 +36,9 @@
         "@commitlint/cli": "^12.1.4",
         "@commitlint/config-conventional": "^12.1.4",
         "conventional-changelog-cli": "^2.1.1",
+        "files": "^2.1.1",
         "husky": "^7.0.0",
-        "standard-version": "^9.3.2"
+        "standard-version": "^9.3.2",
+        "vite": "^2.8.6"
     }
 }
