@@ -10,6 +10,7 @@ const lang = navigator.language || navigator.userLanguage;
 // "en"
 // "zh-CN"]
 
+// NOTE: Audio can't play at service worker
 const NoteC_G = new Audio("./assets/NoteC_G.mp3");
 const NoteG_C = new Audio("./assets/NoteG_C.mp3");
 const 边沿检测器 = (初始值) => (新值) =>
