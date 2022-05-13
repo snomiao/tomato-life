@@ -106,6 +106,10 @@ TomatoTicker(force:=0)
     if (IsFullScreen()){
         Return
     }
+    ; ignore afk
+    if ( A_TimeIdlePhysical > 30 * 60 * 1000 ){
+        Return
+    }
     ; 切换番茄状态
     ; MsgBox, 番茄：%番茄状态%
     ; TrayTip, 番茄：%番茄状态%, ： %番茄状态%
