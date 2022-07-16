@@ -18,13 +18,29 @@ if ("TEST" == ENVIROMENT || !!RegExMatch(DllCall("GetCommandLine", "str"), "/TES
     ExitApp
 }
 
-Menu, tray, icon, Tomato.ico
 
+Menu, tray, icon, %A_ScriptDir%/Tomato.ico
+
+高精度时间配置()
 ; Menu, Tray, Click
 TomatoLifeLaunch()
 MakeSureStartup()
 
 Return
+
+
+高精度时间配置(){
+    ToolTip, Tomato-Life 正在为您配置系统高精度时间
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "FrequencyCorrectRate" /t REG_DWORD /d 2 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "UpdateInterval" /t REG_DWORD /d 100 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxPollInterval" /t REG_DWORD /d 6 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MinPollInterval" /t REG_DWORD /d 6 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxAllowedPhaseOffset" /t REG_DWORD /d 0 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient" /v "SpecialPollInterval" /t REG_DWORD /d 64 /f, , Hide
+    RunWait net stop w32time , , Hide
+    RunWait net start w32time, , Hide
+    ToolTip
+}
 
 ; ; dev
 ; #if ENVIROMENT=="DEV"
@@ -88,6 +104,10 @@ TomatoTicker(force:=0)
     }
     ; 忽略全屏
     if (IsFullScreen()){
+        Return
+    }
+    ; ignore afk
+    if ( A_TimeIdlePhysical > 30 * 60 * 1000 ){
         Return
     }
     ; 切换番茄状态
