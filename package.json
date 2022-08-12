@@ -14,7 +14,6 @@
         "build": "vite build",
         "ahk": "start ./ahk/TomatoLife.exe",
         "test": "cd ahk && TomatoLife.exe TomatoLife.ahk /TEST",
-        "patch": "npm version patch",
         "build:extension-for-dev": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force",
         "build:extension-for-user": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.crx -Force",
         "prepare": "husky install",
