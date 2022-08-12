@@ -18,6 +18,9 @@ if ("TEST" == ENVIROMENT || !!RegExMatch(DllCall("GetCommandLine", "str"), "/TES
     ExitApp
 }
 
+run cmd /c mkdir %appdata%/tomato-life
+; run cmd /c notepad %appdata%/tomato-life/run-at-work.cmd
+; run cmd /c notepad %appdata%/tomato-life/run-at-rest.cmd
 
 Menu, tray, icon, %A_ScriptDir%/Tomato.ico
 
@@ -54,10 +57,12 @@ MakeSureStartup(){
     FileDelete, %startCMDPath%
     FileAppend, %content%, %startCMDPath%
 }
+
 TomatoLifeLaunch() {
     HighPerformanceTimeConfig()
     SetTimer TomatoLife, -1
 }
+
 HighPerformanceTimeConfig()
 {
     ; RegWrite, REG_SZ|REG_EXPAND_SZ|REG_MULTI_SZ|REG_DWORD|REG_BINARY, HKLM|HKU|HKCU|HKCR|HKCC, SubKey [, ValueName, Value]
@@ -70,11 +75,11 @@ HighPerformanceTimeConfig()
     RunWait net stop w32time, , Hide
     RunWait net start w32time, , Hide
 }
+
 StatusCalc()
 {
     Return ((Mod((UnixTimeGet() / 60000), 30) < 25) ? "工作时间" : "休息时间")
 }
-
 
 TomatoTicker(force:=0)
 {
@@ -115,18 +120,26 @@ TomatoTicker(force:=0)
     ; TrayTip, 番茄：%番茄状态%, ： %番茄状态%
     ; 状态动作
     if ("工作时间" == 番茄状态) {
-        SoundPlay % A_ScriptDir "/NoteC_G.mp3" ; 升调
-        倒计时(番茄状态 "桌面切换")
-        Func("SwitchToDesktop").Call(2) ; 切到工作桌面（桌面2）
+        番茄工作()
     }
     if ("休息时间" == 番茄状态) {
-        SoundPlay % A_ScriptDir "/NoteG_C.mp3" ; 降调
-        倒计时(番茄状态 "桌面切换")
-        Func("SwitchToDesktop").Call(1) ; 切到休息桌面（桌面1）
+        番茄休息()
     }
     上次番茄状态 := 番茄状态
 }
 
+番茄工作(){
+    SoundPlay % A_ScriptDir "/NoteC_G.mp3" ; 升调
+    run cmd /c %appdata%/tomato-life/run-at-work.cmd
+    倒计时(番茄状态 "桌面切换")
+    Func("SwitchToDesktop").Call(2) ; 切到工作桌面（桌面2）
+}
+番茄休息(){
+    SoundPlay % A_ScriptDir "/NoteG_C.mp3" ; 降调
+    run cmd /c %appdata%/tomato-life/run-at-rest.cmd
+    倒计时(番茄状态 "桌面切换")
+    Func("SwitchToDesktop").Call(1) ; 切到休息桌面（桌面1）k
+}
 倒计时(名义, 秒 := 10){
     while (秒 > 0){
         ToolTip % 名义 "倒计时" 秒 "秒"
