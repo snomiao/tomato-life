@@ -1,2 +1,2 @@
 cd %~dp0
-start "" TomatoLife.exe
+start "" cmd /c TomatoLife.exe
