@@ -4,7 +4,7 @@
     "description": "Just work hard at every 0-24 and 30-54 minutes.",
     "main": "./ahk/TomatoLife.exe",
     "bin": {
-        "tomato-life": "ahk/TomatoLife.cmd"
+        "tomato-life": "ahk/TomatoLife.exe"
     },
     "directories": {
         "doc": "docs"
