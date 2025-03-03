@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/snomiao/Tomato-Life/compare/v1.0.18...v1.2.0) (2025-03-03)
+
+
+### Features
+
+* **ahk:** run-at cmd ([c2b627e](https://github.com/snomiao/Tomato-Life/commit/c2b627e32f94d200de6c2ba25572860f431ceab5))
+* **ahk:** runat ([81459a7](https://github.com/snomiao/Tomato-Life/commit/81459a70171ea31a243fdc629eb88bfe40ab9fc3))
+* ignore afk ([39c8982](https://github.com/snomiao/Tomato-Life/commit/39c8982710983cd906d2d629972520266c685768))
+* **master:** link twinkle ([03cb03d](https://github.com/snomiao/Tomato-Life/commit/03cb03d8fbede88dd72b7518895fee3f4c75dbe3))
+
+
+### Bug Fixes
+
+* **ahk:** format ([7a22c5d](https://github.com/snomiao/Tomato-Life/commit/7a22c5d28d3d173b4b7e72985937c050cacb03bf))
+* **ahk:** use cmd to launch ([f1c9ac2](https://github.com/snomiao/Tomato-Life/commit/f1c9ac2312c334ae56237b8aefd77d1df6958684))
+* eol ([8848ca9](https://github.com/snomiao/Tomato-Life/commit/8848ca9af75fac6c44633dcbfc52ea5327bbe7fc))
+* **master:** tidy ([293fed2](https://github.com/snomiao/Tomato-Life/commit/293fed2abbccf67dc89671409565bf6d31dddad6))
+* try service worker ([9002360](https://github.com/snomiao/Tomato-Life/commit/9002360e7f46b0e06d5142491df142acccecaa06))
+* **virtual-desktop:** support win11 ([5a82726](https://github.com/snomiao/Tomato-Life/commit/5a82726a5f1e4c6289da31dbd6fa67378ef83b36))
+
 ### [1.0.18](https://github.com/snomiao/Tomato-Life/compare/v1.0.17...v1.0.18) (2022-03-19)
 
 ### [1.0.17](https://github.com/snomiao/Tomato-Life/compare/v1.0.16...v1.0.17) (2022-03-19)
