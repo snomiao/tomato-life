@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/snomiao/Tomato-Life/compare/v1.2.0...v1.3.0) (2025-03-03)
+
+
+### Features
+
+* **GotoWebsite:** done ([34701bf](https://github.com/snomiao/Tomato-Life/commit/34701bf764f7c25af8860d0bca06e59619d2d000))
+
+
+### Bug Fixes
+
+* **virtual-desktop:** disable environment rules ([0996f62](https://github.com/snomiao/Tomato-Life/commit/0996f625fd958cfd7a965cf57c458f8741a3883c))
+
 ## [1.2.0](https://github.com/snomiao/Tomato-Life/compare/v1.0.18...v1.2.0) (2025-03-03)
 
 
