@@ -41,7 +41,7 @@ CLSID_VirtualDesktopManager := "{AA509086-5CA9-4C25-8F95-589D3C07B48A}"
 CLSID_VirtualDesktopManagerInternal := "{C5E0CDCA-7B6E-41B2-9FC4-D93975CC467B}"
 CLSID_VirtualDesktopPinnedApps := "{B5A399E7-1C87-46B8-88E9-FC5747B171BD}"
 
-Return
+; Return
 
 ; API definitions
 /*
@@ -134,7 +134,7 @@ object QueryService(ref Guid service, ref Guid riid);
 ; GetWindowDesktopId              := vtable(IVirtualDesktopManager, 4)
 ; MoveWindowToDesktop             := vtable(IVirtualDesktopManager, 5)
 
-#if ; Define Functions
+; #if ; Define Functions
 
 ; Move the current window to another desktop
 MoveActiveWindowWithAction(action)

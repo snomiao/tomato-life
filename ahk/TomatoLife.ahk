@@ -4,75 +4,59 @@
 #Include, %A_ScriptDir%/IsFullScreen.ahk
 #Include, %A_ScriptDir%/VirtualDesktop.ahk
 
-EnvGet ENVIROMENT, ENVIROMENT
-if ("TEST" == ENVIROMENT || !!RegExMatch(DllCall("GetCommandLine", "str"), "/TEST")) {
+; setup tray
+Menu, tray, icon, %A_ScriptDir%/Tomato.ico
+
+; bind twinkle
+; global TwinkleTrayPath := "%LocalAppData%\Programs\twinkle-tray\Twinkle Tray.exe"
+
+; Detect Environment
+EnvGet ENVIRONMENT, ENVIRONMENT
+global isDevMode := !!FileExist(A_ScriptDir . "/../.git")
+global isTestMode := "TEST" == ENVIRONMENT || !!RegExMatch(DllCall("GetCommandLine", "str"), "--test")
+; MsgBox, isDevMode %isDevMode%
+if (isTestMode) {
     tooltip % "[INFO] MODULE LOAD OK, SKIP CORE"
     ExitApp
 }
 
-run cmd /c mkdir %appdata%/tomato-life
-; run cmd /c notepad %appdata%/tomato-life/run-at-work.cmd
-; run cmd /c notepad %appdata%/tomato-life/run-at-rest.cmd
+FileCreateDir, A_AppData . "/tomato-life"
+if (!FileExist(A_AppData . "/tomato-life/run-at-work.cmd")) {
+    FileAppend, % "", % A_AppData . "/tomato-life/run-at-work.cmd"
+}
+if (!FileExist(A_AppData . "/tomato-life/run-at-rest.cmd")) {
+    FileAppend, % "", % A_AppData . "/tomato-life/run-at-rest.cmd"
+}
 
-Menu, tray, icon, %A_ScriptDir%/Tomato.ico
-
-高精度时间配置()
-; Menu, Tray, Click
+HighPerformanceTimerConfig()
 TomatoLifeLaunch()
-MakeSureStartup()
+AddUserStartup()
 
 Return
 
-
-高精度时间配置(){
-    ToolTip, Tomato-Life 正在为您配置系统高精度时间
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "FrequencyCorrectRate" /t REG_DWORD /d 2 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "UpdateInterval" /t REG_DWORD /d 100 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxPollInterval" /t REG_DWORD /d 6 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MinPollInterval" /t REG_DWORD /d 6 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxAllowedPhaseOffset" /t REG_DWORD /d 0 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient" /v "SpecialPollInterval" /t REG_DWORD /d 64 /f, , Hide
-    RunWait net stop w32time , , Hide
-    RunWait net start w32time, , Hide
-    ToolTip
-}
-
-; ; dev
-; #if ENVIROMENT=="DEV"
-; ^!i:: TomatoTicker(1)
-; ~^s:: reload
+; dev hotkey for reloading on saving
+#if isDevMode
+    ~^s:: Reload
 
 #if
-MakeSureStartup(){
-    content = start "" %A_AhkPath%
-    startCMDPath = %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\tomato-life.cmd
-    FileDelete, %startCMDPath%
-    FileAppend, %content%, %startCMDPath%
-}
 
-TomatoLifeLaunch() {
-    HighPerformanceTimeConfig()
-    SetTimer TomatoLife, -1
-}
 
-HighPerformanceTimeConfig()
-{
-    ; RegWrite, REG_SZ|REG_EXPAND_SZ|REG_MULTI_SZ|REG_DWORD|REG_BINARY, HKLM|HKU|HKCU|HKCR|HKCC, SubKey [, ValueName, Value]
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "FrequencyCorrectRate" /t REG_DWORD /d 2 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "UpdateInterval" /t REG_DWORD /d 100 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxPollInterval" /t REG_DWORD /d 6 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MinPollInterval" /t REG_DWORD /d 6 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxAllowedPhaseOffset" /t REG_DWORD /d 0 /f, , Hide
-    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient" /v "SpecialPollInterval" /t REG_DWORD /d 64 /f, , Hide
-    RunWait net stop w32time, , Hide
-    RunWait net start w32time, , Hide
-}
+
 
 StatusCalc()
 {
     Return ((Mod((UnixTimeGet() / 60000), 30) < 25) ? "工作时间" : "休息时间")
 }
 
+TomatoLifeLaunch() {
+    SetTimer TomatoLifeTimer, -1
+}
+TomatoLifeTimer(){
+    间隔 := 60000 ; 间隔为1分钟，精度到毫秒级
+    延时 := (间隔 - Mod(UnixTimeGet(), 间隔))
+    TomatoTicker()
+    SetTimer TomatoLifeTimer, %延时%
+}
 TomatoTicker(force:=0)
 {
     ; ToolTip, ticker
@@ -90,10 +74,10 @@ TomatoTicker(force:=0)
     }
     番茄状态 := StatusCalc()
     ; 边沿触发过滤器
-    
+
     static 上次番茄状态 := ""
     ; static 上次番茄状态 := StatusCalc()
-    
+
     ; msgbox %上次番茄状态% %番茄状态%
     ; 番茄未变化
     if (上次番茄状态 == 番茄状态 && !force) {
@@ -122,15 +106,17 @@ TomatoTicker(force:=0)
 
 番茄工作(){
     SoundPlay % A_ScriptDir "/NoteC_G.mp3" ; 升调
-    Run cmd /c %appdata%/tomato-life/run-at-work.cmd
+    Run cmd /c %A_AppData%/tomato-life/run-at-work.cmd
+    shiftBright(10)
     倒计时(番茄状态 "桌面切换")
-    Func("SwitchToDesktop").Call(2) ; 切到工作桌面（桌面2）
+    ; Func("SwitchToDesktop").Call(2) ; 切到工作桌面（桌面2）
 }
 番茄休息(){
     SoundPlay % A_ScriptDir "/NoteG_C.mp3" ; 降调
-    Run cmd /c %appdata%/tomato-life/run-at-rest.cmd
+    Run cmd /c %A_AppData%/tomato-life/run-at-rest.cmd
+    shiftBright(-10)
     倒计时(番茄状态 "桌面切换")
-    Func("SwitchToDesktop").Call(1) ; 切到休息桌面（桌面1）k
+    ; Func("SwitchToDesktop").Call(1) ; 切到休息桌面（桌面1）
 }
 倒计时(名义, 秒 := 10){
     while (秒 > 0){
@@ -140,6 +126,23 @@ TomatoTicker(force:=0)
     }
     ToolTip
 }
+
+shiftBright(offset, 秒 := 10){
+    global shiftBrightTimerRemain, shiftBrightTimerOffset
+    shiftBrightTimerRemain := 秒
+    shiftBrightTimerOffset := offset
+    SetTimer, shiftBrightTimer, 1000
+}
+shiftBrightTimer(){
+    global shiftBrightTimerRemain, shiftBrightTimerOffset
+    if (!shiftBrightTimerRemain){
+        SetTimer, shiftBrightTimer, Off
+        return
+    }
+    addMonitorsBright(shiftBrightTimerOffset)
+    shiftBrightTimerRemain -= 1
+}
+
 UnixTimeGet()
 {
     ; ref: https://www.autohotkey.com/boards/viewtopic.php?t=17333
@@ -148,9 +151,48 @@ UnixTimeGet()
     Return t * 1000 + A_MSec
 }
 
-TomatoLife:
-    间隔 := 60000 ; 间隔为1分钟，精度到毫秒级
-    延时 := (间隔 - Mod(UnixTimeGet(), 间隔))
-    TomatoTicker()
-    SetTimer TomatoLife, %延时%
-Return
+
+; 高精度时间配置(){
+;     ToolTip, Tomato-Life 正在为您配置系统高精度时间
+;     RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "FrequencyCorrectRate" /t REG_DWORD /d 2 /f, , Hide
+;     RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "UpdateInterval" /t REG_DWORD /d 100 /f, , Hide
+;     RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxPollInterval" /t REG_DWORD /d 6 /f, , Hide
+;     RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MinPollInterval" /t REG_DWORD /d 6 /f, , Hide
+;     RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxAllowedPhaseOffset" /t REG_DWORD /d 0 /f, , Hide
+;     RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient" /v "SpecialPollInterval" /t REG_DWORD /d 64 /f, , Hide
+;     RunWait net stop w32time , , Hide
+;     RunWait net start w32time, , Hide
+;     ToolTip
+; }
+
+HighPerformanceTimerConfig()
+{
+    ; RegWrite, REG_SZ|REG_EXPAND_SZ|REG_MULTI_SZ|REG_DWORD|REG_BINARY, HKLM|HKU|HKCU|HKCR|HKCC, SubKey [, ValueName, Value]
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "FrequencyCorrectRate" /t REG_DWORD /d 2 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "UpdateInterval" /t REG_DWORD /d 100 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxPollInterval" /t REG_DWORD /d 6 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MinPollInterval" /t REG_DWORD /d 6 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config" /v "MaxAllowedPhaseOffset" /t REG_DWORD /d 0 /f, , Hide
+    RunWait reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient" /v "SpecialPollInterval" /t REG_DWORD /d 64 /f, , Hide
+    RunWait net stop w32time, , Hide
+    RunWait net start w32time, , Hide
+}
+
+setMonitorsBright(bright:=100){
+    If (FileExist(LocalAppData . "\Programs\twinkle-tray\Twinkle Tray.exe")){
+        Run, "%LocalAppData%\Programs\twinkle-tray\Twinkle Tray.exe" --All --Set=%bright%
+    }
+}
+addMonitorsBright(offset:=100){
+    If (FileExist(LocalAppData . "\Programs\twinkle-tray\Twinkle Tray.exe")){
+        Run, "%LocalAppData%\Programs\twinkle-tray\Twinkle Tray.exe" --All --Offset=%offset%
+    }
+}
+
+AddUserStartup(){
+    content = start "" %A_AhkPath%
+    startCMDPath := A_AppData . "\Microsoft\Windows\Start Menu\Programs\Startup\tomato-life-startup.cmd"
+    FileDelete, %startCMDPath%
+    FileAppend, %content%, %startCMDPath%
+}
+
