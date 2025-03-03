@@ -20,14 +20,7 @@ if (isTestMode) {
     ExitApp
 }
 
-FileCreateDir, A_AppData . "/tomato-life"
-if (!FileExist(A_AppData . "/tomato-life/run-at-work.cmd")) {
-    FileAppend, % "", % A_AppData . "/tomato-life/run-at-work.cmd"
-}
-if (!FileExist(A_AppData . "/tomato-life/run-at-rest.cmd")) {
-    FileAppend, % "", % A_AppData . "/tomato-life/run-at-rest.cmd"
-}
-
+initHelperScripts()
 HighPerformanceTimerConfig()
 TomatoLifeLaunch()
 AddUserStartup()
@@ -37,7 +30,7 @@ Return
 ; dev hotkey for reloading on saving
 #if isDevMode
     ~^s:: Reload
-
+    
 #if
 
 StatusCalc()
@@ -105,15 +98,15 @@ TomatoTicker(force:=0)
     SoundPlay % A_ScriptDir "/NoteC_G.mp3" ; 升调
     Run cmd /c %A_AppData%/tomato-life/run-at-work.cmd
     shiftBright(10)
-    倒计时(番茄状态 "桌面切换")
-    ; Func("SwitchToDesktop").Call(2) ; 切到工作桌面（桌面2）
+    ; 倒计时(番茄状态 "桌面切换")
+    Func("SwitchToDesktop").Call(1) ; 切到工作桌面（桌面1）
 }
 番茄休息(){
     SoundPlay % A_ScriptDir "/NoteG_C.mp3" ; 降调
     Run cmd /c %A_AppData%/tomato-life/run-at-rest.cmd
     shiftBright(-10)
-    倒计时(番茄状态 "桌面切换")
-    ; Func("SwitchToDesktop").Call(1) ; 切到休息桌面（桌面1）
+    ; 倒计时(番茄状态 "桌面切换")
+    Func("SwitchToDesktop").Call(10) ; 切到休息桌面（桌面10）
 }
 倒计时(名义, 秒 := 10){
     while (秒 > 0){
@@ -147,7 +140,6 @@ UnixTimeGet()
     EnvSub, t, 19700101000000, Seconds
     Return t * 1000 + A_MSec
 }
-
 
 ; 高精度时间配置(){
 ;     ToolTip, Tomato-Life 正在为您配置系统高精度时间
@@ -193,3 +185,13 @@ AddUserStartup(){
     FileAppend, %content%, %startCMDPath%
 }
 
+initHelperScripts(){
+
+    FileCreateDir, A_AppData . "/tomato-life"
+    if (!FileExist(A_AppData . "/tomato-life/run-at-work.cmd")) {
+        FileAppend, % "", % A_AppData . "/tomato-life/run-at-work.cmd"
+    }
+    if (!FileExist(A_AppData . "/tomato-life/run-at-rest.cmd")) {
+        FileAppend, % "", % A_AppData . "/tomato-life/run-at-rest.cmd"
+    }
+}

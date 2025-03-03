@@ -189,11 +189,11 @@ SwitchToDesktop(idx)
     if (SwitchToDesktopByInternalAPI(idx)) {
         ; ok
     } else if (SwitchToDesktopByHotkey(idx)) {
-        ; Tooltip, WARN SwitchToDesktopByHotkey %idx%
+        Tooltip, WARN SwitchToDesktopByHotkey %idx%
     } else {
         Tooltip, WARN SwitchToDesktop FAILED
     }
-    EnsureCurrentEnviromentRule(idx)
+    ; EnsureCurrentEnviromentRule(idx)
     return idx
 }
 EnsureCurrentEnviromentRule(idx)
