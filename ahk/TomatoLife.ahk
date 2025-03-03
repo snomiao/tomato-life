@@ -122,13 +122,13 @@ TomatoTicker(force:=0)
 
 番茄工作(){
     SoundPlay % A_ScriptDir "/NoteC_G.mp3" ; 升调
-    run cmd /c %appdata%/tomato-life/run-at-work.cmd
+    Run cmd /c %appdata%/tomato-life/run-at-work.cmd
     倒计时(番茄状态 "桌面切换")
     Func("SwitchToDesktop").Call(2) ; 切到工作桌面（桌面2）
 }
 番茄休息(){
     SoundPlay % A_ScriptDir "/NoteG_C.mp3" ; 降调
-    run cmd /c %appdata%/tomato-life/run-at-rest.cmd
+    Run cmd /c %appdata%/tomato-life/run-at-rest.cmd
     倒计时(番茄状态 "桌面切换")
     Func("SwitchToDesktop").Call(1) ; 切到休息桌面（桌面1）k
 }

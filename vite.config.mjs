@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
-import path, { resolve } from "path";
 import { walk } from "files";
+import path, { resolve } from "path";
+import { defineConfig } from "vite";
 
 const root = resolve("src");
 const htmlInputs = await walk(root)
