@@ -7,6 +7,12 @@
 ; setup tray
 Menu, tray, icon, %A_ScriptDir%/Tomato.ico
 
+Menu, Tray, Add, Trigger Tomato Ticker, TomatoTicker
+Menu, Tray, Default, Trigger Tomato Ticker
+Menu, Tray, Click, 1
+
+Menu, Tray, Add, Goto Website, GotoWebsite
+
 ; bind twinkle
 ; global TwinkleTrayPath := "%LocalAppData%\Programs\twinkle-tray\Twinkle Tray.exe"
 
@@ -30,8 +36,13 @@ Return
 ; dev hotkey for reloading on saving
 #if isDevMode
     ~^s:: Reload
-    
+
 #if
+
+GotoWebsite(){
+    ; - [snomiao/tomato-life]( https://github.com/snomiao/tomato-life )
+    Run https://github.com/snomiao/tomato-life
+}
 
 StatusCalc()
 {
@@ -65,8 +76,8 @@ TomatoTicker(force:=0)
     番茄状态 := StatusCalc()
     ; 边沿触发过滤器
 
-    static 上次番茄状态 := ""
-    ; static 上次番茄状态 := StatusCalc()
+    ; static 上次番茄状态 := ""
+    static 上次番茄状态 := StatusCalc()
 
     ; msgbox %上次番茄状态% %番茄状态%
     ; 番茄未变化
@@ -97,24 +108,34 @@ TomatoTicker(force:=0)
 番茄工作(){
     SoundPlay % A_ScriptDir "/NoteC_G.mp3" ; 升调
     Run cmd /c %A_AppData%/tomato-life/run-at-work.cmd
+    ; SendInput {Media_Play_Pause}
     shiftBright(10)
-    ; 倒计时(番茄状态 "桌面切换")
+    CountDownTooltip(番茄状态 "桌面切换")
     Func("SwitchToDesktop").Call(1) ; 切到工作桌面（桌面1）
 }
 番茄休息(){
     SoundPlay % A_ScriptDir "/NoteG_C.mp3" ; 降调
     Run cmd /c %A_AppData%/tomato-life/run-at-rest.cmd
+    ; SendInput {Media_Play_Pause}
     shiftBright(-10)
-    ; 倒计时(番茄状态 "桌面切换")
+    CountDownTooltip(番茄状态 "桌面切换")
     Func("SwitchToDesktop").Call(10) ; 切到休息桌面（桌面10）
 }
-倒计时(名义, 秒 := 10){
-    while (秒 > 0){
-        ToolTip % 名义 "倒计时" 秒 "秒"
-        Sleep 1000
-        秒 -= 1
+CountDownTooltip(名义, 秒 := 10){
+    global CountDownTooltipName, CountDownTooltipRemain
+    CountDownTooltipName := 名义
+    CountDownTooltipRemain := 秒
+    SetTimer, CountDownTooltipTimer, 1000
+}
+CountDownTooltipTimer(){
+    global CountDownTooltipName, CountDownTooltipRemain
+    if(CountDownTooltipRemain){
+        ToolTip % CountDownTooltipName "" CountDownTooltipRemain "秒"
+        CountDownTooltipRemain -= 1
+        return
     }
     ToolTip
+    SetTimer, CountDownTooltipTimer, Off
 }
 
 shiftBright(offset, 秒 := 10){
