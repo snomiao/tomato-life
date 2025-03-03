@@ -40,9 +40,6 @@ Return
 
 #if
 
-
-
-
 StatusCalc()
 {
     Return ((Mod((UnixTimeGet() / 60000), 30) < 25) ? "工作时间" : "休息时间")
