@@ -1,46 +1,51 @@
 {
-    "name": "tomato-life",
-    "version": "1.1.1",
-    "description": "Just work hard at every 0-24 and 30-54 minutes.",
-    "main": "./ahk/TomatoLife.exe",
-    "bin": {
-        "tomato-life": "ahk/TomatoLife.exe"
-    },
-    "directories": {
-        "doc": "docs"
-    },
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "ahk": "start ./ahk/TomatoLife.exe",
-        "test": "cd ahk && TomatoLife.exe TomatoLife.ahk /TEST",
-        "build:extension-for-dev": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force",
-        "build:extension-for-user": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.crx -Force",
-        "release": "standard-version --no-verify",
-        "postrelease": "git push --follow-tag --all"
-    },
-    "files": [
-        "ahk",
-        "extension"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/snomiao/Tomato-Life.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/snomiao/Tomato-Life/issues"
-    },
-    "homepage": "https://github.com/snomiao/Tomato-Life#readme",
-    "devDependencies": {
-        "@commitlint/cli": "^12.1.4",
-        "@commitlint/config-conventional": "^12.1.4",
-        "conventional-changelog-cli": "^2.1.1",
-        "files": "^2.1.1",
-        "husky": "^7.0.0",
-        "standard-version": "^9.3.2",
-        "vite": "^2.8.6"
-    }
+  "name": "tomato-life",
+  "version": "1.1.1",
+  "description": "Just work hard at every 0-24 and 30-54 minutes.",
+  "main": "./ahk/TomatoLife.exe",
+  "bin": {
+    "tomato-life": "ahk/TomatoLife.exe"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "ahk": "start ./ahk/TomatoLife.exe",
+    "test": "cd ahk && TomatoLife.exe TomatoLife.ahk /TEST",
+    "build:extension-for-dev": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force",
+    "build:extension-for-user": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.crx -Force",
+    "release": "standard-version --no-verify",
+    "postrelease": "git push --follow-tag --all"
+  },
+  "files": [
+    "ahk",
+    "extension"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snomiao/Tomato-Life.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snomiao/Tomato-Life/issues"
+  },
+  "homepage": "https://github.com/snomiao/Tomato-Life#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "conventional-changelog-cli": "^2.1.1",
+    "files": "^2.1.1",
+    "husky": "^7.0.0",
+    "standard-version": "^9.3.2",
+    "vite": "^2.8.6"
+  },
+  "dependencies": {
+    "@types/cross-zip": "^4.0.2",
+    "@types/node": "^20.14.7",
+    "cross-zip": "^4.0.1"
+  }
 }

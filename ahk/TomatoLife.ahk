@@ -1,12 +1,4 @@
-﻿; ========== CapsLockX ==========
-; 名称：定时任务
-; 描述：打开 CapsLockX 的 Github 页面
-; 作者：snomiao
-; 联系：snomiao@gmail.com
-; 支持：https://github.com/snomiao/CapsLockX
-; 版本：v2021.03.26
-; ========== CapsLockX ==========
-#Persistent
+﻿#Persistent
 #SingleInstance, force
 
 #Include, %A_ScriptDir%/IsFullScreen.ahk
