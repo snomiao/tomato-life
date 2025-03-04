@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/snomiao/Tomato-Life/compare/v1.3.0...v1.3.1) (2025-03-04)
+
+
+### Bug Fixes
+
+* **afk:** ignored ([fdc29ac](https://github.com/snomiao/Tomato-Life/commit/fdc29ac05c71cc128ac3a8ae47f1ddcc4c5286d4))
+* **master:** bump version ([767908a](https://github.com/snomiao/Tomato-Life/commit/767908a48f3471f7bac805accf9f94d585b6fb63))
+* **master:** format ([b8f310d](https://github.com/snomiao/Tomato-Life/commit/b8f310d9d45c5dcb2565530e1734d422fc2db9aa))
+* **typo:** in manifest ([4f86ddc](https://github.com/snomiao/Tomato-Life/commit/4f86ddcd045080f51863a42719a54778766f18df))
+
 ## [1.3.0](https://github.com/snomiao/Tomato-Life/compare/v1.2.0...v1.3.0) (2025-03-03)
 
 
