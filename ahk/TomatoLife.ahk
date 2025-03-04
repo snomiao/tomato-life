@@ -31,6 +31,9 @@ HighPerformanceTimerConfig()
 TomatoLifeLaunch()
 AddUserStartup()
 
+; maybe future
+; AskInstallTwinkleTray()
+
 Return
 
 ; dev hotkey for reloading on saving
@@ -38,6 +41,12 @@ Return
     ~^s:: Reload
 
 #if
+
+AskInstallTwinkleTray(){
+    If (!FileExist(LocalAppData . "\Programs\twinkle-tray\Twinkle Tray.exe")){
+        Run https://github.com/xanderfrangos/twinkle-tray/releases/download/v1.16.6/Twinkle.Tray.v1.16.6.exe
+    }
+}
 
 GotoWebsite(){
     ; - [snomiao/tomato-life]( https://github.com/snomiao/tomato-life )
@@ -208,7 +217,6 @@ AddUserStartup(){
 }
 
 initHelperScripts(){
-
     FileCreateDir, A_AppData . "/tomato-life"
     if (!FileExist(A_AppData . "/tomato-life/run-at-work.cmd")) {
         FileAppend, % "", % A_AppData . "/tomato-life/run-at-work.cmd"
