@@ -88,7 +88,7 @@ TomatoTicker(force:=0)
     if (IsFullScreen()){
         Return
     }
-    ; ignore afk
+    ; ignore afk 30min
     if ( A_TimeIdlePhysical > 30 * 60 * 1000 ){
         Return
     }
