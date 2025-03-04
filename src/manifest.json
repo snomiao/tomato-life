@@ -1,6 +1,6 @@
 {
-    "name": "25min Tomato Life",
-    "version": "1.4",
+    "name": "Tomato Life",
+    "version": "1.4.1",
     "manifest_version": 3,
     "description": "Just work hard at every 0-24 and 30-54 minutes",
     "icons": {
