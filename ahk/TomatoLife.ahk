@@ -99,7 +99,8 @@ TomatoTicker(force:=0)
     }
     ; ignore afk 30s
     if ( A_TimeIdlePhysical > 30 * 60 * 1000 ){
-        TrayTip, Afk Ignored
+        TrayTip, % "Wait for your back :D"
+        WaitForAnyKey()
         Return
     }
     ; 切换番茄状态
@@ -223,5 +224,13 @@ initHelperScripts(){
     }
     if (!FileExist(A_AppData . "/tomato-life/run-at-rest.cmd")) {
         FileAppend, % "", % A_AppData . "/tomato-life/run-at-rest.cmd"
+    }
+}
+WaitForAnyKey() {
+    T := A_TimeIdlePhysical
+    Loop {
+        If (A_TimeIdlePhysical - T < 0)
+            Break
+        Sleep, 1000
     }
 }
