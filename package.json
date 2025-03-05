@@ -1,6 +1,6 @@
 {
   "name": "tomato-life",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Just work hard at every 0-24 and 30-54 minutes.",
   "main": "./ahk/TomatoLife.exe",
   "bin": {

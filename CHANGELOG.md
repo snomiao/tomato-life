@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/snomiao/Tomato-Life/compare/v1.3.1...v1.3.2) (2025-03-05)
+
+
+### Bug Fixes
+
+* **master:** twinkle tray maybe future ([7011b87](https://github.com/snomiao/Tomato-Life/commit/7011b87df4a84aff96a4efac1cc7164f9617c6d4))
+* **wait:** for ([c3ffe83](https://github.com/snomiao/Tomato-Life/commit/c3ffe83c3d7c69611b391f88eea1769ac47d8060))
+
 ### [1.3.1](https://github.com/snomiao/Tomato-Life/compare/v1.3.0...v1.3.1) (2025-03-04)
 
 
