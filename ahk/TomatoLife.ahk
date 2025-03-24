@@ -120,16 +120,18 @@ TomatoTicker(force:=0)
     SoundPlay % A_ScriptDir "/NoteC_G.mp3" ; 升调
     Run cmd /c %A_AppData%/tomato-life/run-at-work.cmd
     ; SendInput {Media_Play_Pause}
-    shiftBright(10)
-    CountDownTooltip(番茄状态 "桌面切换")
+    ; shiftBright(10)
+    addMonitorsBright(50)
+    CountDownTooltip(番茄状态 "桌面切换", 10)
     Func("SwitchToDesktop").Call(1) ; 切到工作桌面（桌面1）
 }
 番茄休息(){
     SoundPlay % A_ScriptDir "/NoteG_C.mp3" ; 降调
     Run cmd /c %A_AppData%/tomato-life/run-at-rest.cmd
     ; SendInput {Media_Play_Pause}
-    shiftBright(-10)
-    CountDownTooltip(番茄状态 "桌面切换")
+    ; shiftBright(-10)
+    addMonitorsBright(-50)
+    CountDownTooltip(番茄状态 "桌面切换", 10)
     Func("SwitchToDesktop").Call(10) ; 切到休息桌面（桌面10）
 }
 CountDownTooltip(名义, 秒 := 10){
