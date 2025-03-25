@@ -1,4 +1,4 @@
-﻿#Persistent
+#Persistent
 #SingleInstance, force
 
 #Include, %A_ScriptDir%/IsFullScreen.ahk
@@ -12,6 +12,8 @@ Menu, Tray, Default, Trigger Tomato Ticker
 Menu, Tray, Click, 1
 
 Menu, Tray, Add, Goto Website, GotoWebsite
+
+Menu, Tray, Add, Exit, ExitApp
 
 ; bind twinkle
 ; global TwinkleTrayPath := "%LocalAppData%\Programs\twinkle-tray\Twinkle Tray.exe"
