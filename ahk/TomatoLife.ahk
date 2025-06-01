@@ -97,8 +97,8 @@ TomatoTicker(force:=0)
     if (IsFullScreen()){
         Return
     }
-    ; ignore afk 30s
-    if ( A_TimeIdlePhysical > 30 * 60 * 1000 ){
+    ; ignore afk more than 6min
+    if ( A_TimeIdlePhysical > 6 * 60 * 1000 ){
         TrayTip, % "Wait for your back :D"
         WaitForAnyKey()
         Return
