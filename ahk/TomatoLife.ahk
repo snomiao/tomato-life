@@ -1,4 +1,4 @@
-#Persistent
+﻿#Persistent
 #SingleInstance, force
 
 #Include, %A_ScriptDir%/IsFullScreen.ahk
