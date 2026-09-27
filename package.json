@@ -39,14 +39,13 @@
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "conventional-changelog-cli": "^2.1.1",
+    "fflate": "^0.8.3",
     "files": "^2.1.1",
     "husky": "^7.0.0",
     "standard-version": "^9.3.2",
     "vite": "^2.8.6"
   },
   "dependencies": {
-    "@types/cross-zip": "^4.0.2",
-    "@types/node": "^20.14.7",
-    "cross-zip": "^4.0.1"
+    "@types/node": "^20.14.7"
   }
 }

@@ -36,12 +36,18 @@ Listing details:
 
 ## How to submit a new version
 
-1. Bump `version` in `src/manifest.json`.
-2. Build the zip. On Windows use the system `tar.exe`, because `bun build-extension.ts` (cross-zip) writes backslash paths like `assets\Tomato.png`, which Chrome can't resolve:
+1. Bump `version` in `src/manifest.json`. The store rejects a version that isn't higher than the current one.
+2. Push a `v*` tag. The `chrome-web-store` job in `.github/workflows/github-release.yml` runs `bun scripts/release-extension.ts`, which zips `src/`, uploads it and submits it for review.
 
-   ```sh
-   cd src && /c/Windows/System32/tar.exe -a -c -f ../dist/TomatoLife.zip *
-   ```
+To release from a local machine instead, set `CWS_SERVICE_ACCOUNT_KEY` (the JSON key) or `CWS_ACCESS_TOKEN` and run `bun scripts/release-extension.ts`. Add `--no-publish` to upload a draft without submitting it. `bun build-extension.ts` alone builds `dist/TomatoLife.zip`.
 
-3. The upload kit in `store/` (serve the repo root, e.g. `python -m http.server 8765`, then open <http://127.0.0.1:8765/store/>) has the listing text, permission justifications and store images. Screenshots are rendered from `store/shots/*.html` with headless Chrome.
-4. Upload it on the dashboard yourself, on the package page linked above (**Upload new package**). Chrome blocks extensions from scripting `chrome.google.com`, so rechrome and other extension-driven automation can't open the dashboard.
+### API access
+
+- Chrome Web Store API v2, enabled in the gcloud project `snomiao`.
+- Service account `tomato-life-cws@snomiao.iam.gserviceaccount.com`; it must be added under **Account** in the developer dashboard (one service account per publisher).
+- Its JSON key is the GitHub secret `CWS_SERVICE_ACCOUNT_KEY` (key ID `a0ab8350f704fd882475bf10502ad20c1c3c5000`, created 2026-09-27). No local copy is kept; to rotate, create a new key and run `gh secret set CWS_SERVICE_ACCOUNT_KEY < key.json`, then delete the old key.
+- The API can only update an existing item. A new item has to be created on the dashboard, which rechrome can't open because Chrome blocks extensions on `chrome.google.com`.
+
+### Store listing
+
+The upload kit in `store/` has the listing text, permission justifications and store images. Serve the repo root (e.g. `python -m http.server 8765`) and open <http://127.0.0.1:8765/store/>. Screenshots are rendered from `store/shots/*.html` with headless Chrome.
