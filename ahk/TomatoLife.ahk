@@ -123,7 +123,7 @@ TomatoTicker(force:=0)
     Run cmd /c %A_AppData%/tomato-life/run-at-work.cmd
     ; SendInput {Media_Play_Pause}
     ; shiftBright(10)
-    addMonitorsBright(50)
+    ; addMonitorsBright(50)
     CountDownTooltip(番茄状态 "桌面切换", 10)
     Func("SwitchToDesktop").Call(1) ; 切到工作桌面（桌面1）
 }
@@ -132,7 +132,7 @@ TomatoTicker(force:=0)
     Run cmd /c %A_AppData%/tomato-life/run-at-rest.cmd
     ; SendInput {Media_Play_Pause}
     ; shiftBright(-10)
-    addMonitorsBright(-50)
+    ; addMonitorsBright(-50)
     CountDownTooltip(番茄状态 "桌面切换", 10)
     Func("SwitchToDesktop").Call(10) ; 切到休息桌面（桌面10）
 }
