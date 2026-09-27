@@ -1,0 +1,22 @@
+# Upload src/ to the Chrome Web Store and submit it for review.
+# Needs src/manifest.json's version bumped past the store's current one.
+on:
+    push:
+        tags:
+            - "v*"
+    workflow_dispatch:
+        inputs:
+            args:
+                description: "release-extension.ts flags: --status, --no-publish, or empty to submit"
+                default: "--status"
+name: Chrome Web Store
+jobs:
+    chrome-web-store:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: oven-sh/setup-bun@v2
+            - run: bun i
+            - run: bun scripts/release-extension.ts ${{ inputs.args }}
+              env:
+                  CWS_SERVICE_ACCOUNT_KEY: ${{ secrets.CWS_SERVICE_ACCOUNT_KEY }}

@@ -14,17 +14,6 @@ jobs:
             - run: npx -y -- github-release-from-cc-changelog ${{ env.RELEASE_VERSION }}
               env:
                   CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
-    # Upload src/ to the Chrome Web Store and submit it for review.
-    # Needs src/manifest.json's version bumped past the store's current one.
-    chrome-web-store:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: oven-sh/setup-bun@v2
-            - run: bun i
-            - run: bun scripts/release-extension.ts
-              env:
-                  CWS_SERVICE_ACCOUNT_KEY: ${{ secrets.CWS_SERVICE_ACCOUNT_KEY }}
     github-upload-crx:
         needs: github-release
         runs-on: ubuntu-latest

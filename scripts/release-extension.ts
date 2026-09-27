@@ -2,6 +2,7 @@
 //
 //   bun scripts/release-extension.ts             build, upload, submit for review
 //   bun scripts/release-extension.ts --no-publish  build and upload only (stays a draft)
+//   bun scripts/release-extension.ts --status      print the item's status, change nothing
 //
 // Auth: CWS_SERVICE_ACCOUNT_KEY (the service account's JSON key), or CWS_ACCESS_TOKEN.
 // The service account tomato-life-cws@snomiao.iam.gserviceaccount.com must be added
@@ -48,6 +49,11 @@ async function call(token: string, url: string, init: RequestInit = {}) {
     const json = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(`${init.method ?? "GET"} ${url}: ${res.status} ${JSON.stringify(json)}`);
     return json;
+}
+
+if (process.argv.includes("--status")) {
+    console.log("status:", JSON.stringify(await call(await accessToken(), `${API}:fetchStatus`), null, 2));
+    process.exit(0);
 }
 
 const zip = await buildExtension();

@@ -37,9 +37,9 @@ Listing details:
 ## How to submit a new version
 
 1. Bump `version` in `src/manifest.json`. The store rejects a version that isn't higher than the current one.
-2. Push a `v*` tag. The `chrome-web-store` job in `.github/workflows/github-release.yml` runs `bun scripts/release-extension.ts`, which zips `src/`, uploads it and submits it for review.
+2. Push a `v*` tag. The `.github/workflows/chrome-web-store.yml` workflow runs `bun scripts/release-extension.ts`, which zips `src/`, uploads it and submits it for review.
 
-To release from a local machine instead, set `CWS_SERVICE_ACCOUNT_KEY` (the JSON key) or `CWS_ACCESS_TOKEN` and run `bun scripts/release-extension.ts`. Add `--no-publish` to upload a draft without submitting it. `bun build-extension.ts` alone builds `dist/TomatoLife.zip`.
+To release from a local machine instead, set `CWS_SERVICE_ACCOUNT_KEY` (the JSON key) or `CWS_ACCESS_TOKEN` and run `bun scripts/release-extension.ts`. Add `--no-publish` to upload a draft without submitting it, or `--status` to only print the item status. The same flags can be passed when starting the workflow by hand (Actions → Chrome Web Store → Run workflow). `bun build-extension.ts` alone builds `dist/TomatoLife.zip`.
 
 ### API access
 
