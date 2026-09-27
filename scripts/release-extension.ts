@@ -13,7 +13,8 @@ import { readFile } from "node:fs/promises";
 import { buildExtension } from "../build-extension";
 
 const PUBLISHER = "b952b326-9677-4ccf-9ed7-ddce0f28dc4f";
-const ITEM = "fdpgimhoidilfibpfjbeglepdeedffno";
+// CWS_ITEM_ID targets another item under the same publisher (e.g. for --status)
+const ITEM = process.env.CWS_ITEM_ID || "fdpgimhoidilfibpfjbeglepdeedffno";
 const API = `https://chromewebstore.googleapis.com/v2/publishers/${PUBLISHER}/items/${ITEM}`;
 const UPLOAD = `https://chromewebstore.googleapis.com/upload/v2/publishers/${PUBLISHER}/items/${ITEM}:upload`;
 

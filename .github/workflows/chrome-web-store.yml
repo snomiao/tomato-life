@@ -9,6 +9,9 @@ on:
             args:
                 description: "release-extension.ts flags: --status, --no-publish, or empty to submit"
                 default: "--status"
+            item:
+                description: "Web Store item ID (empty = Tomato Life)"
+                default: ""
 name: Chrome Web Store
 jobs:
     chrome-web-store:
@@ -20,3 +23,4 @@ jobs:
             - run: bun scripts/release-extension.ts ${{ inputs.args }}
               env:
                   CWS_SERVICE_ACCOUNT_KEY: ${{ secrets.CWS_SERVICE_ACCOUNT_KEY }}
+                  CWS_ITEM_ID: ${{ inputs.item }}
