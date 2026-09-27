@@ -7,3 +7,6 @@ extension
 *.log
 # store upload kit build output
 store/upload/
+
+# local Claude Code settings
+.claude/
