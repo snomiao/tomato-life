@@ -62,8 +62,19 @@ if (process.env.CWS_ITEM_ID && process.env.CWS_ITEM_ID !== "fdpgimhoidilfibpfjbe
     throw new Error("CWS_ITEM_ID is only for --status; uploads always go to Tomato Life");
 }
 
-const zip = await buildExtension();
 const { version } = JSON.parse(await readFile("src/manifest.json", "utf8"));
+
+// One line for the review-watch workflow: approved|rejected|pending <version> <submitted state>
+if (process.argv.includes("--review")) {
+    const s = await call(await accessToken(), `${API}:fetchStatus`);
+    const published = s.publishedItemRevisionStatus?.distributionChannels?.[0]?.crxVersion;
+    const submitted = s.submittedItemRevisionStatus?.state ?? "-";
+    const result = published === version ? "approved" : /REJECT/.test(submitted) ? "rejected" : "pending";
+    console.log(`${result} ${version} ${submitted}${s.takenDown ? " takenDown" : ""}`);
+    process.exit(0);
+}
+
+const zip = await buildExtension();
 console.log(`built ${zip} (version ${version})`);
 
 const token = await accessToken();
