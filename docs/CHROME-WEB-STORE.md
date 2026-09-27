@@ -12,7 +12,7 @@ Old item ID: `kkacpbmkhbljebmpcopjlgfgbgeokbhn` (still linked from the README). 
 
 ### 1.4.2 — submitted 2026-09-27
 
-Status: submitted for review as a new item, `fdpgimhoidilfibpfjbeglepdeedffno`.
+Status: submitted for review as a new item, `fdpgimhoidilfibpfjbeglepdeedffno`. Still `PENDING_REVIEW` at the last API check (2026-09-27), with nothing published yet. The review watch below opens an issue when it finishes.
 
 Dashboard message:
 
@@ -39,13 +39,21 @@ Listing details:
 1. Bump `version` in `src/manifest.json`. The store rejects a version that isn't higher than the current one.
 2. Push a `v*` tag. The `.github/workflows/chrome-web-store.yml` workflow runs `bun scripts/release-extension.ts`, which zips `src/`, uploads it and submits it for review.
 
-To release from a local machine instead, set `CWS_SERVICE_ACCOUNT_KEY` (the JSON key) or `CWS_ACCESS_TOKEN` and run `bun scripts/release-extension.ts`. Add `--no-publish` to upload a draft without submitting it, or `--status` to only print the item status. The same flags can be passed when starting the workflow by hand (Actions → Chrome Web Store → Run workflow). `bun build-extension.ts` alone builds `dist/TomatoLife.zip`.
+To release from a local machine instead, set `CWS_SERVICE_ACCOUNT_KEY` (the JSON key) or `CWS_ACCESS_TOKEN` and run `bun scripts/release-extension.ts`. Add `--no-publish` to upload a draft without submitting it, `--status` to only print the item status, or `--review` to print one line (`approved`, `rejected` or `pending`, then the manifest version and the submitted state). The same flags can be passed when starting the workflow by hand (Actions → Chrome Web Store → Run workflow). `bun build-extension.ts` alone builds `dist/TomatoLife.zip`.
+
+### Review watch
+
+`.github/workflows/review-watch.yml` runs every 3 hours (and by hand from Actions → Web Store review watch). It runs `--review`, and when the result is not `pending` it opens one issue titled `Chrome Web Store: <version> <approved|rejected>` that mentions @snomiao, which arrives as a GitHub notification. It skips the issue if one with that title already exists. "Approved" means the published version equals `src/manifest.json`'s version. If the check itself fails, the run fails and GitHub emails the failure instead.
+
+snolab/SNOREAD (item `bdklagnoakmjndjdnfgfimgailecicjo`, same publisher and service account) has the same watch; see its `docs/CHROME-WEB-STORE.md`.
 
 ### API access
 
 - Chrome Web Store API v2, enabled in the gcloud project `snomiao`.
 - Service account `tomato-life-cws@snomiao.iam.gserviceaccount.com`; it must be added under **Account** in the developer dashboard (one service account per publisher).
 - Its JSON key is the GitHub secret `CWS_SERVICE_ACCOUNT_KEY` (key ID `a0ab8350f704fd882475bf10502ad20c1c3c5000`, created 2026-09-27). No local copy is kept; to rotate, create a new key and run `gh secret set CWS_SERVICE_ACCOUNT_KEY < key.json`, then delete the old key.
+- The same service account has a second key (ID `abafa86b9b3b1879cf6acda9fd96e2d2e2e0234e`) stored as the `CWS_SERVICE_ACCOUNT_KEY` secret of snolab/SNOREAD. Revoke either key on its own.
+- `CWS_ITEM_ID` lets `--status` read another item under the publisher. Uploads refuse it, because the zip is always this repo's `src/`.
 - The API can only update an existing item. A new item has to be created on the dashboard, which rechrome can't open because Chrome blocks extensions on `chrome.google.com`.
 
 ### Store listing
