@@ -57,6 +57,11 @@ if (process.argv.includes("--status")) {
     process.exit(0);
 }
 
+// The zip is always this repo's src/, so never upload it to another item
+if (process.env.CWS_ITEM_ID && process.env.CWS_ITEM_ID !== "fdpgimhoidilfibpfjbeglepdeedffno") {
+    throw new Error("CWS_ITEM_ID is only for --status; uploads always go to Tomato Life");
+}
+
 const zip = await buildExtension();
 const { version } = JSON.parse(await readFile("src/manifest.json", "utf8"));
 console.log(`built ${zip} (version ${version})`);
