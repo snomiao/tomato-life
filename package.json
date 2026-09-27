@@ -13,11 +13,12 @@
     "ahk": "./ahk/TomatoLife",
     "dev": "vite",
     "build": "vite build",
-    "test": "cd ahk && TomatoLife.exe TomatoLife.ahk --test",
+    "test": "cd ahk && .\\TomatoLife.exe TomatoLife.test.ahk --test",
     "build:extension-for-dev": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.zip -Force",
     "build:extension-for-user": "mkdir dist || cd && powershell Compress-Archive -Path ./src -DestinationPath ./dist/TomatoLife.crx -Force",
     "release": "standard-version --no-verify",
-    "postrelease": "git push --follow-tag --all"
+    "postrelease": "git push --follow-tag --all",
+    "prepare": "husky install"
   },
   "files": [
     "ahk",
