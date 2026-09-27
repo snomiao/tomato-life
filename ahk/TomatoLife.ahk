@@ -13,7 +13,7 @@ Menu, Tray, Click, 1
 
 Menu, Tray, Add, Goto Website, GotoWebsite
 
-Menu, Tray, Add, Exit, ExitApp
+Menu, Tray, Add, Exit, TrayExit
 
 ; bind twinkle
 ; global TwinkleTrayPath := "%LocalAppData%\Programs\twinkle-tray\Twinkle Tray.exe"
@@ -48,6 +48,10 @@ AskInstallTwinkleTray(){
     If (!FileExist(LocalAppData . "\Programs\twinkle-tray\Twinkle Tray.exe")){
         Run https://github.com/xanderfrangos/twinkle-tray/releases/download/v1.16.6/Twinkle.Tray.v1.16.6.exe
     }
+}
+
+TrayExit(){
+    ExitApp
 }
 
 GotoWebsite(){
