@@ -2,4 +2,8 @@
 . "$(dirname "$0")/_/husky.sh"
 
 sh scripts/fix-default-branch.sh
-npm test
+
+# the test runs the bundled AutoHotkey TomatoLife.exe, which only exists on Windows
+if [ "$OS" = "Windows_NT" ]; then
+    npm test
+fi
