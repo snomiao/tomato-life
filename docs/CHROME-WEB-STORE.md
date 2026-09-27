@@ -1,14 +1,18 @@
 # Chrome Web Store
 
-Old listing (linked from the README): <https://chrome.google.com/webstore/detail/tomato-life/kkacpbmkhbljebmpcopjlgfgbgeokbhn>
+Current item ID: `fdpgimhoidilfibpfjbeglepdeedffno` (created 2026-09-27 as a new item)
 
-Developer dashboard: <https://chrome.google.com/webstore/devconsole> (snomiao@gmail.com)
+- Public listing (live once review passes): <https://chromewebstore.google.com/detail/fdpgimhoidilfibpfjbeglepdeedffno>
+- Dashboard package page: <https://chrome.google.com/webstore/devconsole/b952b326-9677-4ccf-9ed7-ddce0f28dc4f/fdpgimhoidilfibpfjbeglepdeedffno/edit/package>
+- Publisher ID: `b952b326-9677-4ccf-9ed7-ddce0f28dc4f` (snomiao@gmail.com)
+
+Old item ID: `kkacpbmkhbljebmpcopjlgfgbgeokbhn` (still linked from the README). It no longer serves a version to Chrome, probably taken down with the MV2 extensions.
 
 ## Submissions
 
 ### 1.4.2 — submitted 2026-09-27
 
-Status: submitted for review.
+Status: submitted for review as a new item, `fdpgimhoidilfibpfjbeglepdeedffno`.
 
 Dashboard message:
 
@@ -40,4 +44,4 @@ Listing details:
    ```
 
 3. The upload kit in `store/` (serve the repo root, e.g. `python -m http.server 8765`, then open <http://127.0.0.1:8765/store/>) has the listing text, permission justifications and store images. Screenshots are rendered from `store/shots/*.html` with headless Chrome.
-4. Upload it on the dashboard yourself. Chrome blocks extensions from scripting `chrome.google.com`, so rechrome and other extension-driven automation can't open the dashboard.
+4. Upload it on the dashboard yourself, on the package page linked above (**Upload new package**). Chrome blocks extensions from scripting `chrome.google.com`, so rechrome and other extension-driven automation can't open the dashboard.
