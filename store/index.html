@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tomato Life Upload Kit</title>
+<link rel="icon" href="upload/store-icon-128.png" />
+<style>
+    :root {
+        --bg: #fbf8f6; --card: #fff; --ink: #2b1d19; --muted: #7a6660;
+        --line: #eadfdb; --accent: #c8372d; --ok: #2f8a3c; --code: #f5efec;
+    }
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg: #1a1413; --card: #241c1a; --ink: #f1e8e5; --muted: #b3a29d;
+            --line: #3a2e2b; --accent: #ff6b5e; --ok: #6fcf7c; --code: #2e2422;
+        }
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0; background: var(--bg); color: var(--ink);
+        font: 15px/1.55 "Segoe UI", system-ui, sans-serif;
+    }
+    main { max-width: 920px; margin: 0 auto; padding: 32px 16px 80px; }
+    h1 { font-size: 28px; margin: 0 0 4px; display: flex; align-items: center; gap: 12px; }
+    h1 img { width: 40px; height: 40px; }
+    .sub { color: var(--muted); margin: 0 0 28px; }
+    section {
+        background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+        padding: 20px 22px; margin-bottom: 18px;
+    }
+    h2 { font-size: 18px; margin: 0 0 12px; display: flex; gap: 10px; align-items: baseline; }
+    h2 .n {
+        background: var(--accent); color: #fff; border-radius: 50%; width: 26px; height: 26px;
+        display: inline-grid; place-items: center; font-size: 14px; flex: none;
+    }
+    ol, ul { margin: 6px 0; padding-left: 22px; }
+    li { margin: 4px 0; }
+    a { color: var(--accent); }
+    code { background: var(--code); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+    .field { margin: 14px 0 0; }
+    .label { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .label b { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .val {
+        white-space: pre-wrap; background: var(--code); border-radius: 8px; padding: 10px 12px;
+        font-size: 14px; margin: 0; overflow-wrap: anywhere;
+    }
+    button {
+        font: inherit; font-size: 13px; cursor: pointer; border: 1px solid var(--line);
+        background: var(--card); color: var(--ink); border-radius: 6px; padding: 3px 10px;
+    }
+    button.done { color: var(--ok); border-color: var(--ok); }
+    .files { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 12px; }
+    .file { border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+    .file img {
+        display: block; width: 100%; height: 150px; object-fit: contain; cursor: grab;
+        background: repeating-conic-gradient(var(--code) 0 25%, transparent 0 50%) 0 0 / 16px 16px;
+        border-radius: 6px;
+    }
+    .zip {
+        height: 150px; display: grid; place-items: center; border-radius: 6px; cursor: grab;
+        background: var(--code); font-size: 40px; text-decoration: none; color: var(--ink);
+    }
+    .file .meta { margin-top: 8px; font-size: 13px; }
+    .file .meta span { color: var(--muted); }
+    .file .row { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+    .note { color: var(--muted); font-size: 13px; }
+    .check { list-style: none; padding-left: 0; }
+    .check li::before { content: "☐ "; }
+</style>
+</head>
+<body>
+<main>
+    <h1><img src="upload/store-icon-128.png" alt="" /> Tomato Life upload kit</h1>
+    <p class="sub">Everything the Chrome Web Store asks for, in the order it asks. Version 1.4.2, Manifest V3.</p>
+
+    <section>
+        <h2><span class="n">1</span>Files to upload</h2>
+        <p>Drag a card's picture onto the store's drop area. If a drop doesn't take, click
+        <b>Copy path</b>, then paste the path into the file-name box of the store's "Browse" dialog.
+        All files sit in one folder: <code id="dir"></code></p>
+        <div class="files" id="files"></div>
+    </section>
+
+    <section>
+        <h2><span class="n">2</span>Open the dashboard and add the package</h2>
+        <ol>
+            <li>Open <a href="https://chrome.google.com/webstore/devconsole" target="_blank">chrome.google.com/webstore/devconsole</a> signed in as <b>snomiao@gmail.com</b>.</li>
+            <li><b>If "Tomato Life" is already in the item list</b> (ID <code>kkacpbmkhbljebmpcopjlgfgbgeokbhn</code>, the listing the README links to):
+                open it → <b>Package</b> → <b>Upload new package</b> → drop <code>TomatoLife-1.4.2.zip</code>. This keeps the old ID, users and reviews.</li>
+            <li><b>Otherwise</b>: <b>+ New item</b> → drop <code>TomatoLife-1.4.2.zip</code>.</li>
+        </ol>
+        <p class="note">The old listing no longer serves a version to Chrome, so it's probably unpublished or was taken down with the MV2 extensions.</p>
+    </section>
+
+    <section>
+        <h2><span class="n">3</span>Store listing tab</h2>
+        <p>Name and summary come from the manifest. Fill in the rest:</p>
+        <div id="listing"></div>
+        <p class="field">Graphic assets: drop <code>store-icon-128.png</code> on <b>Store icon</b>, both
+        <code>screenshot-*.png</code> on <b>Screenshots</b>, and <code>small-promo-tile-440x280.png</code> on
+        <b>Small promo tile</b>. Leave the marquee tile empty.</p>
+    </section>
+
+    <section>
+        <h2><span class="n">4</span>Privacy tab</h2>
+        <div id="privacy"></div>
+        <p class="field"><b>Data usage:</b> tick none of the data types, then tick all three certifications:</p>
+        <ul class="check">
+            <li>I do not sell or transfer user data to third parties, outside of the approved use cases</li>
+            <li>I do not use or transfer user data for purposes that are unrelated to my item's single purpose</li>
+            <li>I do not use or transfer user data to determine creditworthiness or for lending purposes</li>
+        </ul>
+        <p class="note">The dashboard requires a privacy policy URL even though nothing is collected. The one above says exactly that.</p>
+    </section>
+
+    <section>
+        <h2><span class="n">5</span>Distribution tab, then submit</h2>
+        <ul>
+            <li>Payments: <b>Free of charge</b></li>
+            <li>Visibility: <b>Public</b></li>
+            <li>Regions: <b>All regions</b></li>
+        </ul>
+        <p>Then click <b>Submit for review</b>. If the button is greyed out, the dashboard lists the missing
+        fields in red. A new or unverified account also needs its contact email verified on the <b>Account</b> page first.</p>
+    </section>
+</main>
+
+<script>
+const DIR = String.raw`C:\Users\snomi\ws\snomiao\tomato-life\tree\main\store\upload`;
+
+const FILES = [
+    ["TomatoLife-1.4.2.zip", "Package: step 2"],
+    ["store-icon-128.png", "Store icon: 128×128"],
+    ["screenshot-1-work-1280x800.png", "Screenshot 1: 1280×800"],
+    ["screenshot-2-rest-1280x800.png", "Screenshot 2: 1280×800"],
+    ["small-promo-tile-440x280.png", "Small promo tile: 440×280"],
+];
+
+const LISTING = [
+    ["Description", `Tomato Life is a Pomodoro timer that follows the wall clock, so there is nothing to start or stop.
+
+• :00–:25 and :30–:55: work. A rising C–G chime marks the start.
+• :25–:30 and :55–:00: rest. A falling G–C chime tells you to stand up, stretch or grab a coffee.
+• The toolbar badge shows the minutes left: red while you work, green while you rest.
+• Click the icon to see the current state.
+
+Everyone runs on the same clock, so a whole team can take its breaks together.
+
+No account, no tracking, no data collected. Open source: https://github.com/snomiao/tomato-life`],
+    ["Category", "Productivity → Workflow & Planning"],
+    ["Language", "English"],
+    ["Official URL", "(leave as None)"],
+    ["Homepage URL", "https://github.com/snomiao/tomato-life"],
+    ["Support URL", "https://github.com/snomiao/tomato-life/issues"],
+];
+
+const PRIVACY = [
+    ["Single purpose description", "Plays a chime at the start of each work and rest period of a fixed, clock-based Pomodoro schedule (work :00–:25 and :30–:55, rest in between) and shows the minutes left on the toolbar badge."],
+    ["alarms justification", "Wakes the service worker once a minute to update the badge countdown and to play the chime when a work or rest period starts."],
+    ["offscreen justification", "Manifest V3 service workers cannot play audio, so the extension opens an offscreen document (reason AUDIO_PLAYBACK) only to play the chime."],
+    ["Remote code", "No, I am not using remote code"],
+    ["Privacy policy URL", "https://github.com/snomiao/tomato-life/blob/master/docs/PRIVACY.md"],
+];
+
+const copyButton = (text, label = "Copy") => {
+    const b = document.createElement("button");
+    b.textContent = label;
+    b.onclick = async () => {
+        await navigator.clipboard.writeText(text);
+        b.textContent = "Copied";
+        b.classList.add("done");
+        setTimeout(() => { b.textContent = label; b.classList.remove("done"); }, 1500);
+    };
+    return b;
+};
+
+const renderFields = (el, rows) => {
+    for (const [name, value] of rows) {
+        const f = document.createElement("div");
+        f.className = "field";
+        f.innerHTML = `<div class="label"><b></b></div><pre class="val"></pre>`;
+        f.querySelector("b").textContent = name;
+        f.querySelector("pre").textContent = value;
+        if (!value.startsWith("(")) f.querySelector(".label").append(copyButton(value));
+        el.append(f);
+    }
+};
+
+document.getElementById("dir").textContent = DIR;
+const filesEl = document.getElementById("files");
+for (const [name, what] of FILES) {
+    const card = document.createElement("div");
+    card.className = "file";
+    const url = `upload/${name}`;
+    const preview = name.endsWith(".png")
+        ? Object.assign(document.createElement("img"), { src: url, alt: name, draggable: true })
+        : Object.assign(document.createElement("a"), { href: url, download: name, className: "zip", textContent: "📦", draggable: true });
+    // Also carry the file itself, for drop targets that read dataTransfer.files
+    preview.addEventListener("dragstart", async (e) => {
+        e.dataTransfer.setData("DownloadURL", `${name.endsWith(".zip") ? "application/zip" : "image/png"}:${name}:${new URL(url, location).href}`);
+    });
+    card.append(preview);
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.innerHTML = `<div></div><span></span>`;
+    meta.firstChild.textContent = name;
+    meta.lastChild.textContent = what;
+    card.append(meta);
+    const row = document.createElement("div");
+    row.className = "row";
+    row.append(copyButton(`${DIR}\\${name}`, "Copy path"));
+    const dl = Object.assign(document.createElement("a"), { href: url, download: name, textContent: "Download" });
+    row.append(dl);
+    card.append(row);
+    filesEl.append(card);
+}
+renderFields(document.getElementById("listing"), LISTING);
+renderFields(document.getElementById("privacy"), PRIVACY);
+</script>
+</body>
+</html>

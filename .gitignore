@@ -5,3 +5,5 @@ dist
 extension
 
 *.log
+# store upload kit build output
+store/upload/

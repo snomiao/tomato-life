@@ -1,0 +1,31 @@
+* { box-sizing: border-box; margin: 0; }
+body {
+    width: 1280px; height: 800px; overflow: hidden;
+    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #fff6f2, #ffe3da);
+    color: #3a1a14;
+    display: flex; align-items: center; gap: 72px; padding: 0 96px;
+}
+.copy { flex: 1; }
+.copy h1 { font-size: 64px; line-height: 1.05; letter-spacing: -1px; }
+.copy p { font-size: 26px; margin-top: 20px; line-height: 1.4; color: #6b3a30; }
+.browser {
+    width: 520px; background: #fff; border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(120, 30, 10, .18); overflow: hidden;
+}
+.toolbar {
+    height: 52px; background: #eef0f3; display: flex; align-items: center;
+    padding: 0 14px; gap: 10px;
+}
+.url { flex: 1; height: 32px; border-radius: 16px; background: #fff; }
+.icon { position: relative; width: 28px; height: 28px; }
+.icon img { width: 28px; height: 28px; }
+.badge {
+    position: absolute; right: -8px; bottom: -6px; font-size: 12px; font-weight: 700;
+    color: #fff; border-radius: 4px; padding: 0 4px; line-height: 16px;
+}
+.popup { padding: 28px; text-align: center; }
+.popup img { width: 280px; height: 280px; }
+.popup h2 { font-size: 26px; margin-top: 12px; }
+.work .badge { background: #d33; }
+.rest .badge { background: #393; }
