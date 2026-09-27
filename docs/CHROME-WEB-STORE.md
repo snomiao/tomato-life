@@ -31,7 +31,7 @@ What changed:
 Listing details:
 
 - Category: Productivity → Workflow & Planning; language: English.
-- Privacy policy: <https://github.com/snomiao/tomato-life/blob/master/docs/PRIVACY.md>. The dashboard requires the URL even though the extension collects no data.
+- Privacy policy: <https://github.com/snomiao/tomato-life/blob/main/docs/PRIVACY.md>. The dashboard requires the URL even though the extension collects no data.
 - Distribution: free, public, all regions.
 
 ## How to submit a new version
